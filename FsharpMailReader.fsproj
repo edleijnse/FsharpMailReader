@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -10,13 +10,31 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Office.Interop.Outlook" Version="15.0.4797.1003" />
+      <COMReference Include="Microsoft.Office.Core">
+        <WrapperTool>tlbimp</WrapperTool>
+        <VersionMinor>8</VersionMinor>
+        <VersionMajor>2</VersionMajor>
+        <Guid>2df8d04c-5bfa-101b-bde5-00aa0044de52</Guid>
+        <Lcid>0</Lcid>
+        <Isolated>false</Isolated>
+        <EmbedInteropTypes>true</EmbedInteropTypes>
+        <CopyLocal>True</CopyLocal>
+      </COMReference>
+      <COMReference Include="Microsoft.Office.Interop.Outlook">
+        <WrapperTool>tlbimp</WrapperTool>
+        <VersionMinor>6</VersionMinor>
+        <VersionMajor>9</VersionMajor>
+        <Guid>00062fff-0000-0000-c000-000000000046</Guid>
+        <Lcid>0</Lcid>
+        <Isolated>false</Isolated>
+        <EmbedInteropTypes>true</EmbedInteropTypes>
+        <CopyLocal>True</CopyLocal>
+      </COMReference>
     </ItemGroup>
 
+
     <ItemGroup>
-      <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-        <HintPath>..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Outlook.dll</HintPath>
-      </Reference>
+      <PackageReference Update="FSharp.Core" Version="6.0.3" />
     </ItemGroup>
 
 </Project>

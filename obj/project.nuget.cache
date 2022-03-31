@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FYlQp2DCNI84JjGMvnyAPbq8oRc3WODlMwugXexGnwRoDa22CA30TcSUOfZZhEEsd0Hhs+3T1W/zM0UHpYYtLw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\edlei\\RiderProjects\\FsharpMailReader\\FsharpMailReader.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\edlei\\.nuget\\packages\\fsharp.core\\6.0.1\\fsharp.core.6.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -40,9 +40,13 @@ let extract_attachments(mailbox, restrictMessage, outputDir) =
            printfn "%O"  ("FolderPath: " + root.FolderPath)
            for folder in root.Folders do
                printfn "%O" ("folder: " + folder.FolderPath)
-               let messages = folder.Items
-               let restrictedMessages = messages.Restrict(restrictMessage)
+               let items = folder.Items
+               for  item in items do
+                    let mailItem = downcast item : MailItem
+                    printfn "%O" (mailItem.Subject)
+               // let restrictedMessages = messages.Restrict(restrictMessage)
                printf("")
+         
     try
         Marshal.ReleaseComObject(o) |> ignore 
     with

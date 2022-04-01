@@ -30,22 +30,19 @@ let rec folders l (f:Folders) =
         match mf.Folders with
         | :? MAPIFolder -> ()
         | _ -> folders (l @ [1]) mf.Folders
- 
-[<EntryPoint>]
-let main argv = 
+let extract_attachments(mailbox, restrictMessage, outputDir) =
     let o = new Microsoft.Office.Interop.Outlook.ApplicationClass()
     let mapi = o.GetNamespace("MAPI")
-    let mv = System.Reflection.Missing.Value
-    let f = mapi.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
-    let exp = f.GetExplorer(false) 
- 
-    mapi.Logon(mv,mv,mv,mv)
- 
-    printFolder [] f
- 
-    folders [0] f.Folders
-    
-    printfn "end"
+    for root in mapi.Folders do
+        // printfn "%O" (mailbox)
+        // printfn "%O" (root.FolderPath)
+        if root.FolderPath.Contains(mailbox:string)=true then
+           printfn "%O"  ("FolderPath: " + root.FolderPath)
+           for folder in root.Folders do
+               printfn "%O" ("folder: " + folder.FolderPath)
+               let messages = folder.Items
+               let restrictedMessages = messages.Restrict(restrictMessage)
+               printf("")
     try
         Marshal.ReleaseComObject(o) |> ignore 
     with
@@ -54,8 +51,14 @@ let main argv =
                 match (exn.InnerException) with
                 | null -> ""
                 | innerExn -> innerExn.Message
-            printfn "An exception occurred:\n %s\n %s" exn.Message innerMessage
-  
+            printfn "An exception occurred:\n %s\n %s" exn.Message innerMessage    
+    1
+ 
+[<EntryPoint>]
+let main argv = 
+    let outDir = "d:\swissedu_attachments"
+    let result = extract_attachments("ed@leijnse.info","[SenderEmailAddress] = 'helena.dimi@windowslive.com'", outDir)
+    printfn "end"
     1
  
    

@@ -40,11 +40,19 @@ let extract_attachments(mailbox, restrictMessage, outputDir) =
            printfn "%O"  ("FolderPath: " + root.FolderPath)
            for folder in root.Folders do
                printfn "%O" ("folder: " + folder.FolderPath)
-               let items = folder.Items
-               for  item in items do
-                    let mailItem = downcast item : MailItem
-                    printfn "%O" (mailItem.Subject)
-               // let restrictedMessages = messages.Restrict(restrictMessage)
+               for  item in folder.Items do
+                    try
+                       let mailItem = downcast item : MailItem
+                       if mailItem.SenderEmailAddress.Contains(restrictMessage:string)=true then
+                          printfn "%O" (mailItem.Subject + " " +  mailItem.SenderEmailAddress)
+                          let receivedString = mailItem.ReceivedTime.Year.ToString()
+                          for attachment in mailItem.Attachments do
+                              let saveFileName = receivedString + " " + attachment.FileName
+                              attachment.SaveAsFile(saveFileName)
+                    with
+                     | :? System.InvalidCastException -> printfn "InvalidCastException!"
+                     | :? System.NullReferenceException -> printfn "NullReferenceException!"     
+            
                printf("")
          
     try
@@ -60,8 +68,8 @@ let extract_attachments(mailbox, restrictMessage, outputDir) =
  
 [<EntryPoint>]
 let main argv = 
-    let outDir = "d:\swissedu_attachments"
-    let result = extract_attachments("ed@leijnse.info","[SenderEmailAddress] = 'helena.dimi@windowslive.com'", outDir)
+    let outDir = "d:\swissedu_attachments2"
+    let result = extract_attachments("ed@leijnse.info","helena.dimi@windowslive.com", outDir)
     printfn "end"
     1
  

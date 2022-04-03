@@ -45,20 +45,7 @@ let extract_attachments (mailbox, restrictMessage, outputDir) =
                 | :? System.Exception -> printfn "unhandled exception!"
 
                 printf ("")
-
-    try
-        Marshal.ReleaseComObject(o) |> ignore
-    with
-    | exn ->
-        let innerMessage =
-            match (exn.InnerException) with
-            | null -> ""
-            | innerExn -> innerExn.Message
-
-        printfn "An exception occurred:\n %s\n %s" exn.Message innerMessage
-
-    1
-
+                
 [<EntryPoint>]
 let main argv =
     let outDir = "d:\\swissedu_attachments2\\"

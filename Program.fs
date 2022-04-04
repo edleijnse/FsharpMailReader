@@ -11,7 +11,7 @@ let extract_attachments (mailbox, restrictMessage, outputDir) =
         // printfn "%O" (mailbox)
         // printfn "%O" (root.FolderPath)
         if root.FolderPath.Contains(mailbox: string) = true then
-            printfn "%O" ("FolderPath: " + root.FolderPath)
+            printfn "%s" ("FolderPath: " + root.FolderPath)
 
             for folder in root.Folders do
                 printfn "%O" ("folder: " + folder.FolderPath)
